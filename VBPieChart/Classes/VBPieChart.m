@@ -59,6 +59,38 @@ static __inline__ CGFloat CGPointDistanceBetweenTwoPoints(CGPoint point1, CGPoin
     CGPoint _touchBegan;
 }
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    
+    self.chartsData = [NSMutableArray array];
+    self.strokeColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.7];
+    
+    self.startAngle = 0;
+    self.length = M_PI*2;
+    self.radiusPrecent = 0.9;
+    self.holeRadius = 0;
+    self.holeRadiusPrecent = 0.2;
+    self.maxAccentPrecent = 0.25;
+    self.enableStrokeColor = NO;
+    
+    [self addObserver:self
+           forKeyPath:@"chartValues"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:nil];
+    [self addObserver:self
+           forKeyPath:@"enableStrokeColor"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:nil];
+    [self addObserver:self
+           forKeyPath:@"holeRadiusPrecent"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:nil];
+    [self addObserver:self
+           forKeyPath:@"radiusPrecent"
+              options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+              context:nil];
+}
+
 - (id) init {
     self = [super init];
     self.chartsData = [NSMutableArray array];
